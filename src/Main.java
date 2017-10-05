@@ -65,6 +65,7 @@ public class Main extends Application {
         VBox details = new VBox();
         Label songlabel = new Label("a label");
         details.getChildren().add(songlabel);
+        leftAndRightBox.getChildren().add(details);
 
         Button bottomButton1 = new Button("I am on the left.");
         leftAndRightBox.getChildren().add(bottomButton1);
