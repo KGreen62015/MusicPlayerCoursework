@@ -1,13 +1,15 @@
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -51,34 +53,87 @@ public class Main extends Application {
         root.setTop(boxOfButtons);
 
         HBox mid = new HBox(0);
-        mid.setPadding(new Insets(20));
+        mid.setPadding(new Insets(10));
         root.setCenter(mid);
-        ListView<String> list = new ListView<>();
-        HBox.setHgrow(list, Priority.ALWAYS);
-        mid.getChildren().add(list);
+        ObservableList<Person> people = FXCollections.observableArrayList(
+                new Person("Jacob", "Smith", "jacob.smith@example.com"),
+                new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
+                new Person("Ethan", "Williams", "ethan.williams@example.com"),
+                new Person("Emma", "Jones", "emma.jones@example.com"),
+                new Person("Michael", "Brown", "michael.brown@example.com")
+        );
+        TableView table = new TableView<>();
+        table.setPrefSize(400, 300);
+        table.setItems(people);
 
+        TableColumn firstNameColumn = new TableColumn<>("First Name");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        table.getColumns().add(firstNameColumn);
+
+        TableColumn lastNameColumn = new TableColumn<>("Last Name");
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        table.getColumns().add(lastNameColumn);
+
+        TableColumn emailColumn = new TableColumn<>("Email");
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        table.getColumns().add(emailColumn);
+
+        root.getChildren().add(table);
+        /*ListView<String> list = new ListView<>();
+        HBox.setHgrow(list, Priority.ALWAYS);
+        mid.getChildren().add(list);*/
 
 
         HBox leftAndRightBox = new HBox(2);
-        leftAndRightBox.setAlignment(Pos.CENTER_LEFT);
+        leftAndRightBox.setAlignment(Pos.CENTER);
+        leftAndRightBox.setPadding(new Insets(15));
 
         VBox details = new VBox();
-        Label songlabel = new Label("a label");
+
+
+        Label songlabel = new Label("Song");
+        songlabel.setFont(new Font(20));
         details.getChildren().add(songlabel);
+
+        Label albumlabel = new Label("Album");
+        albumlabel.setFont(new Font(20));
+        details.getChildren().add(albumlabel);
+
+        Label artistlabel = new Label("Artist");
+        artistlabel.setFont(new Font(20));
+        details.getChildren().add(artistlabel);
         leftAndRightBox.getChildren().add(details);
+
 
         Button bottomButton1 = new Button("I am on the left.");
         leftAndRightBox.getChildren().add(bottomButton1);
 
+
         Button bottomButton2 = new Button("I am also on the left.");
         leftAndRightBox.getChildren().add(bottomButton2);
 
+        Slider slider = new Slider();
+        slider.setMin(0);
+        slider.setMax(100);
+        slider.setValue(75);
+
         HBox rightSection = new HBox(20);
+
         HBox.setHgrow(rightSection, Priority.ALWAYS);
         rightSection.setAlignment(Pos.CENTER_RIGHT);
 
-        Button bottomButton3 = new Button("I am on the right.");
-        rightSection.getChildren().add(bottomButton3);
+
+        /*ProgressBar progressBar = new ProgressBar();
+        progressBar.setPrefSize(400, 30);
+        progressBar.setProgress(0.5);
+
+        slider.valueProperty().addListener(
+                (observable, old_value, new_value) -> progressBar.setProgress(new_value.doubleValue() / 100));*/
+
+        rightSection.getChildren().addAll(slider/*, progressBar*/);
+
+        /*Button bottomButton3 = new Button("I am on the right.");
+        rightSection.getChildren().add(bottomButton3);*/
         leftAndRightBox.getChildren().add(rightSection);
         root.setBottom(leftAndRightBox);
     }
@@ -87,7 +142,7 @@ public class Main extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Wow, you clicked the button with style!");
+        alert.setContentText("Feature coming soon...");
         alert.showAndWait();
     }
 
