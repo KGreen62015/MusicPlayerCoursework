@@ -1,3 +1,4 @@
+import Models.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,10 +13,14 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
+    public static DatabaseConnection database;
 
     @Override
     public void start(Stage stage) throws Exception {
+        database = new DatabaseConnection("MusicPlayerDatabase.db");
 
         BorderPane root = new BorderPane();
 
@@ -52,7 +57,7 @@ public class Main extends Application {
         boxOfButtons.getChildren().addAll(myButtons);
         root.setTop(boxOfButtons);
 
-        HBox mid = new HBox(0);
+        /*HBox mid = new HBox(0);
         mid.setPadding(new Insets(10));
         root.setCenter(mid);
         ObservableList<Person> people = FXCollections.observableArrayList(
@@ -136,6 +141,29 @@ public class Main extends Application {
         rightSection.getChildren().add(bottomButton3);*/
         leftAndRightBox.getChildren().add(rightSection);
         root.setBottom(leftAndRightBox);
+
+        ArrayList<SongDetails> testList = new ArrayList<>();
+
+        SongDetailsService.selectAll(testList, database);
+
+        for (SongDetails c: testList) {
+            System.out.println(c);
+        }
+
+        ArrayList<ArtistDetails> testList1 = new ArrayList<>();
+
+        ArtistDetailsService.selectAll(testList1, database);
+
+        for (ArtistDetails c: testList1) {
+            System.out.println(c);
+        }
+        ArrayList<AlbumDetails> testList2 = new ArrayList<>();
+
+        AlbumDetailsService.selectAll(testList2, database);
+
+        for (AlbumDetails c: testList2) {
+            System.out.println(c);
+        }
     }
 
     public static void doSomething(ActionEvent ae) {

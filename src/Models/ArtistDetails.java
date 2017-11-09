@@ -2,14 +2,14 @@ package Models;
 
 public class ArtistDetails {
     private int ArtistID;
-    private String FirstName;
-    private String LastName;
+    private String ArtistName;
 
 
-    public ArtistDetails(int artistID, String firstName, String lastName) {
+
+    public ArtistDetails(int artistID, String firstName) {
         ArtistID = artistID;
-        FirstName = firstName;
-        LastName = lastName;
+        ArtistName = firstName;
+
     }
 
 
@@ -22,23 +22,17 @@ public class ArtistDetails {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return ArtistName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        ArtistName = firstName;
     }
 
-    public String getLastName() {
-        return LastName;
-    }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
-    }
 
     @Override
     public String toString() {
-        return FirstName + LastName;
+        return ArtistName;
     }
 }
