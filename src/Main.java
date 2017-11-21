@@ -25,7 +25,7 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
 
 
-        Scene scene = new Scene(root, 1024, 768);
+        Scene scene = new Scene(root, 450, 768);
 
         stage.setTitle("Hello World");
         stage.setScene(scene);
@@ -109,13 +109,21 @@ public class Main extends Application {
         details.getChildren().add(artistlabel);
         leftAndRightBox.getChildren().add(details);
 
+        HBox centreSection = new HBox(30);
+        HBox.setHgrow(centreSection, Priority.ALWAYS);
+        centreSection.setAlignment(Pos.CENTER);
+        leftAndRightBox.getChildren().add(centreSection);
+        root.setBottom(leftAndRightBox);
 
-        Button bottomButton1 = new Button("I am on the left.");
-        leftAndRightBox.getChildren().add(bottomButton1);
 
+        Button backButton = new Button("Back");
+        centreSection.getChildren().add(backButton);
 
-        Button bottomButton2 = new Button("I am also on the left.");
-        leftAndRightBox.getChildren().add(bottomButton2);
+        Button playButton = new Button("Play");
+        centreSection.getChildren().add(playButton);
+
+        Button forwardButton = new Button("Forward");
+        centreSection.getChildren().add(forwardButton);
 
         Slider slider = new Slider();
         slider.setMin(0);
