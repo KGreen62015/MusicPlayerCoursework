@@ -27,4 +27,32 @@ public class AlbumDetailsService {
         } catch (SQLException resultsException) {
             System.out.println("Database select all error: " + resultsException.getMessage());
         }
-}}
+    }
+
+    public static AlbumDetails selectById(int id, DatabaseConnection database) {
+
+        AlbumDetails result = null;
+
+        PreparedStatement statement = database.newStatement("SELECT AlbumID, AlbumName, ArtistID FROM AlbumDetails WHERE AlbumID = ?");
+
+        try {
+            if (statement != null) {
+
+                statement.setInt(1, id);
+                ResultSet results = database.executeQuery(statement);
+
+                if (results != null) {
+                    result = new AlbumDetails(
+                            results.getInt("AlbumID"),
+                            results.getString("AlbumName"),
+                            results.getInt("ArtistID"));
+                }
+            }
+        } catch (SQLException resultsException) {
+            System.out.println("Database select by id error: " + resultsException.getMessage());
+        }
+
+        return result;
+    }
+
+}

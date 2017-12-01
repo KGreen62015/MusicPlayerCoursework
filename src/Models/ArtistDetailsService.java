@@ -28,7 +28,30 @@ public class ArtistDetailsService {
         }
     }
 
+    public static ArtistDetails selectById(int id, DatabaseConnection database) {
 
+        ArtistDetails result = null;
+
+        PreparedStatement statement = database.newStatement("SELECT ArtistID, ArtistName FROM ArtistDetails WHERE ArtistID = ?");
+
+        try {
+            if (statement != null) {
+
+                statement.setInt(1, id);
+                ResultSet results = database.executeQuery(statement);
+
+                if (results != null) {
+                    result = new ArtistDetails(
+                            results.getInt("ArtistID"),
+                            results.getString("ArtistName"));
+                }
+            }
+        } catch (SQLException resultsException) {
+            System.out.println("Database select by id error: " + resultsException.getMessage());
+        }
+
+        return result;
+    }
 
 
 }

@@ -1,3 +1,4 @@
+import Controller.MainController;
 import Models.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,14 +17,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    public static DatabaseConnection database;
 
     @Override
     public void start(Stage stage) throws Exception {
-        database = new DatabaseConnection("MusicPlayerDatabase.db");
 
         BorderPane root = new BorderPane();
-
 
         Scene scene = new Scene(root, 450, 768);
 
@@ -37,23 +35,23 @@ public class Main extends Application {
 
         myButtons[0] = new Button("Search");
         myButtons[0].setPrefSize(200, 50);
-        myButtons[0].setOnAction((ActionEvent ae) -> doSomething(ae));
+        myButtons[0].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
 
         myButtons[1] = new Button("Search");
         myButtons[1].setPrefSize(200, 50);
-        myButtons[1].setOnAction((ActionEvent ae) -> doSomething(ae));
+        myButtons[1].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
 
         myButtons[2] = new Button("Home");
         myButtons[2].setPrefSize(200, 50);
-        myButtons[2].setOnAction((ActionEvent ae) -> doSomething(ae));
+        myButtons[2].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
 
         myButtons[3] = new Button("Playlist");
         myButtons[3].setPrefSize(200, 50);
-        myButtons[3].setOnAction((ActionEvent ae) -> doSomething(ae));
+        myButtons[3].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
 
         myButtons[4] = new Button("Settings");
         myButtons[4].setPrefSize(200, 50);
-        myButtons[4].setOnAction((ActionEvent ae) -> doSomething(ae));
+        myButtons[4].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
         boxOfButtons.getChildren().addAll(myButtons);
         root.setTop(boxOfButtons);
 
@@ -71,9 +69,9 @@ public class Main extends Application {
         table.setPrefSize(400, 300);
         table.setItems(people);
 
-        TableColumn firstNameColumn = new TableColumn<>("First Name");
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        table.getColumns().add(firstNameColumn);
+        TableColumn artistColumn = new TableColumn<>("First Name");
+        artistColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        table.getColumns().add(artistColumn);
 
         TableColumn lastNameColumn = new TableColumn<>("Last Name");
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -150,39 +148,37 @@ public class Main extends Application {
         leftAndRightBox.getChildren().add(rightSection);
         root.setBottom(leftAndRightBox);
 
-        ArrayList<SongDetails> testList = new ArrayList<>();
+        TableView<SongView> songTable = new TableView<>();
 
-        SongDetailsService.selectAll(testList, database);
+        TableColumn nameColumn = new TableColumn<>("Song");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.33));
+        songTable.getColumns().add(nameColumn);
 
-        for (SongDetails c: testList) {
-            System.out.println(c);
-        }
+        TableColumn artistColumn = new TableColumn<>("Artist");
+        artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        artistColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.333));
+        songTable.getColumns().add(artistColumn);
 
-        ArrayList<ArtistDetails> testList1 = new ArrayList<>();
+        TableColumn albumColumn = new TableColumn<>("Album");
+        albumColumn.setCellValueFactory(new PropertyValueFactory<>("album"));
+        albumColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.33));
+        songTable.getColumns().add(albumColumn);
 
-        ArtistDetailsService.selectAll(testList1, database);
+        songTable.setItems(MainController.getSongsForTable());
 
-        for (ArtistDetails c: testList1) {
-            System.out.println(c);
-        }
-        ArrayList<AlbumDetails> testList2 = new ArrayList<>();
+        root.setCenter(songTable);
 
-        AlbumDetailsService.selectAll(testList2, database);
 
-        for (AlbumDetails c: testList2) {
-            System.out.println(c);
-        }
-    }
 
-    public static void doSomething(ActionEvent ae) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Feature coming soon...");
-        alert.showAndWait();
     }
 
     public static void main(String[] args) {
+
+        MainController.init();
+        MainController.databaseTest();
+
         launch(args);
+
     }
 }
