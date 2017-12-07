@@ -23,19 +23,19 @@ public class Main extends Application {
 
         BorderPane root = new BorderPane();
 
-        Scene scene = new Scene(root, 450, 768);
+        Scene scene = new Scene(root, 450, 768); //Creates the scene with correct aspect ratio
 
         stage.setTitle("Hello World");
         stage.setScene(scene);
         stage.show();
 
-        HBox boxOfButtons = new HBox(1);
+        HBox boxOfButtons = new HBox(1); //Create a horizontal box for all the UI Buttons
 
         Button[] myButtons = new Button[5];
 
-        myButtons[0] = new Button("Search");
+        myButtons[0] = new Button("Search"); //Name inside Button
         myButtons[0].setPrefSize(200, 50);
-        myButtons[0].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
+        myButtons[0].setOnAction((ActionEvent ae) -> MainController.doSomething(ae)); //"doSomething  is a place filler
 
         myButtons[1] = new Button("Search");
         myButtons[1].setPrefSize(200, 50);
