@@ -10,10 +10,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -113,14 +116,19 @@ public class Main extends Application {
         leftAndRightBox.getChildren().add(centreSection);
         root.setBottom(leftAndRightBox);
 
+        ImageView img = new ImageView("C://Users//62015//IdeaProjects//MusicPlayerCoursework1//src//Images//backarrow.jpg");
 
-        Button backButton = new Button("Back");
+        img.setOnMouseClicked((MouseEvent e) -> {
+            System.out.println("Clicked!"); // change functionality
+        })
+
+        Button backButton = new Button("Previous");
         centreSection.getChildren().add(backButton);
 
         Button playButton = new Button("Play");
         centreSection.getChildren().add(playButton);
 
-        Button forwardButton = new Button("Forward");
+        Button forwardButton = new Button("Next");
         centreSection.getChildren().add(forwardButton);
 
         Slider slider = new Slider();
@@ -168,9 +176,6 @@ public class Main extends Application {
         songTable.setItems(MainController.getSongsForTable());
 
         root.setCenter(songTable);
-
-
-
     }
 
     public static void main(String[] args) {
