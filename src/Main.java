@@ -11,12 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -38,23 +38,23 @@ public class Main extends Application {
 
         myButtons[0] = new Button("Search"); //Name inside Button
         myButtons[0].setPrefSize(200, 50);
-        myButtons[0].setOnAction((ActionEvent ae) -> MainController.doSomething(ae)); //"doSomething  is a place filler
+        myButtons[0].setOnAction((ActionEvent ae) -> MainController.search()); //"doSomething  is a place filler
 
         myButtons[1] = new Button("Search");
         myButtons[1].setPrefSize(200, 50);
-        myButtons[1].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
+        myButtons[1].setOnAction((ActionEvent ae) -> MainController.search1());
 
         myButtons[2] = new Button("Home");
         myButtons[2].setPrefSize(200, 50);
-        myButtons[2].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
+        myButtons[2].setOnAction((ActionEvent ae) -> MainController.home());
 
         myButtons[3] = new Button("Playlist");
         myButtons[3].setPrefSize(200, 50);
-        myButtons[3].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
+        myButtons[3].setOnAction((ActionEvent ae) -> MainController.playlist());
 
         myButtons[4] = new Button("Settings");
         myButtons[4].setPrefSize(200, 50);
-        myButtons[4].setOnAction((ActionEvent ae) -> MainController.doSomething(ae));
+        myButtons[4].setOnAction((ActionEvent ae) -> MainController.settings());
         boxOfButtons.getChildren().addAll(myButtons);
         root.setTop(boxOfButtons);
 
@@ -116,20 +116,39 @@ public class Main extends Application {
         leftAndRightBox.getChildren().add(centreSection);
         root.setBottom(leftAndRightBox);
 
-        ImageView img = new ImageView("C://Users//62015//IdeaProjects//MusicPlayerCoursework1//src//Images//backarrow.jpg");
+        Image imgback = new Image("Images/backarrow.jpg");
+        ImageView imgView = new ImageView(imgback);
+        imgView.setFitHeight(30);
+        imgView.setFitWidth(30);
 
-        img.setOnMouseClicked((MouseEvent e) -> {
-            System.out.println("Clicked!"); // change functionality
-        })
+        imgView.setOnMouseClicked((x) -> MainController.backbutton());
+        centreSection.getChildren().add(imgView);
 
-        Button backButton = new Button("Previous");
+        Image imgplay = new Image("Images/playbutton.jpg");
+        ImageView imgView2 = new ImageView(imgplay);
+        imgView2.setFitHeight(30);
+        imgView2.setFitWidth(30);
+
+        imgView2.setOnMouseClicked((x) -> MainController.playbutton());
+        centreSection.getChildren().add(imgView2);
+
+        Image imgforward = new Image("Images/forwardarrow.jpg");
+        ImageView imgView3 = new ImageView(imgforward);
+        imgView3.setFitHeight(30);
+        imgView3.setFitWidth(30);
+
+        imgView3.setOnMouseClicked((x) -> MainController.nextbutton());
+        centreSection.getChildren().add(imgView3);
+
+
+        /*Button backButton = new Button("Previous");
         centreSection.getChildren().add(backButton);
 
         Button playButton = new Button("Play");
         centreSection.getChildren().add(playButton);
 
         Button forwardButton = new Button("Next");
-        centreSection.getChildren().add(forwardButton);
+        centreSection.getChildren().add(forwardButton);*/
 
         Slider slider = new Slider();
         slider.setMin(0);
