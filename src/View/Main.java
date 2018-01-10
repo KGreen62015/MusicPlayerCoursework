@@ -210,6 +210,10 @@ public class Main extends Application {
 
         songTable.setItems(MainController.getSongsForTable());
 
+        songTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            MainController.setSelectedSong(newSelection);
+        });
+
         root.setCenter(songTable);
     }
 

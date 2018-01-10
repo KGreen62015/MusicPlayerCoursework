@@ -13,10 +13,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainController {
-    public static boolean playing = false;
     public static DatabaseConnection database;
+
     public static MediaPlayer songPlayer;
+
     public static double volume = 1;
+
+    public static SongView selectedSong;
+    public static SongView currentlyPlayingSong;
+    public static boolean playing = false;
 
     public static void init() {
 
@@ -45,6 +50,9 @@ public class MainController {
 
     }
 
+    public static void setSelectedSong (SongView s) {
+        selectedSong = s;
+    }
 
     public static void search() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -108,6 +116,7 @@ public class MainController {
             Main.imgViewPlayPause.setImage(Main.imgplay);
 
             if (songPlayer != null) {
+
                 songPlayer.pause();
                 playing = false;
             }
@@ -115,9 +124,13 @@ public class MainController {
         } else
         {
 
-            if (songPlayer == null) {
+            if (songPlayer != null && selectedSong != currentlyPlayingSong)
+            {
+                songPlayer.pause();
+                songPlayer = null;
+            }
 
-                SongView selectedSong = Main.songTable.getSelectionModel().getSelectedItem();
+            if (songPlayer == null) {
 
                 if (selectedSong != null) {
 
@@ -136,6 +149,7 @@ public class MainController {
                         Media songMedia = new Media(songFile.toURI().toString());
                         songPlayer = new MediaPlayer(songMedia);
                         songPlayer.play();
+                        currentlyPlayingSong = selectedSong;
                         playing = true;
 
                     }
@@ -146,6 +160,7 @@ public class MainController {
             else {
                 songPlayer.play();      //UN-PAUSE
                 playing = true;
+                currentlyPlayingSong = selectedSong;
             }
 
             if (playing) {
