@@ -1,16 +1,22 @@
 package Controller;
 
 import Models.*;
+import View.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainController {
-
+    public static boolean playing = false;
     public static DatabaseConnection database;
+    public static MediaPlayer songPlayer;
+    public static double volume = 1;
 
     public static void init() {
 
@@ -82,12 +88,73 @@ public class MainController {
         alert.setContentText("Backbutton coming soon...");
         alert.showAndWait();
     }
+
+    public static void setVolume(double value) {
+        volume = value/100;
+        if (playing) {
+            songPlayer.setVolume(volume);
+        }
+    }
+
     public static void playbutton() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+       /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("PlayButton coming soon...");
-        alert.showAndWait();
+        alert.showAndWait();*/
+
+        if (playing) {
+
+            Main.imgViewPlayPause.setImage(Main.imgplay);
+
+            if (songPlayer != null) {
+                songPlayer.pause();
+                playing = false;
+            }
+
+        } else
+        {
+
+            if (songPlayer == null) {
+
+                SongView selectedSong = Main.songTable.getSelectionModel().getSelectedItem();
+
+                if (selectedSong != null) {
+
+                    File songFile = new File("Music/" + Integer.toString(selectedSong.getId()) + ".mp3");
+
+                    if (!songFile.isFile()) {
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("File not found!");
+                        alert.showAndWait();
+
+                    } else {
+
+                        Media songMedia = new Media(songFile.toURI().toString());
+                        songPlayer = new MediaPlayer(songMedia);
+                        songPlayer.play();
+                        playing = true;
+
+                    }
+
+                }
+
+            }
+            else {
+                songPlayer.play();      //UN-PAUSE
+                playing = true;
+            }
+
+            if (playing) {
+                Main.imgViewPlayPause.setImage(Main.imgpause);
+                songPlayer.setVolume(volume);
+            }
+
+        }
+
     }
     public static void nextbutton() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
