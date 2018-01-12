@@ -1,7 +1,6 @@
 package View;
 
 import Controller.MainController;
-import Models.*;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,17 +8,16 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class Main extends Application {
 
@@ -27,84 +25,17 @@ public class Main extends Application {
     public static Image imgpause;
     public static ImageView imgViewPlayPause;
 
-    public static TableView<SongView> songTable;
     public static Slider volumeSlider;
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public static VBox root;
 
-        BorderPane root = new BorderPane();
-
-        Scene scene = new Scene(root, 450, 768); //Creates the scene with correct aspect ratio
-
-        stage.setTitle("Hello World");
-        stage.setScene(scene);
-        stage.show();
-
-        HBox boxOfButtons = new HBox(1); //Create a horizontal box for all the UI Buttons
-
-        Button[] myButtons = new Button[5];
-
-        myButtons[0] = new Button("Search"); //Name inside Button
-        myButtons[0].setPrefSize(200, 50);
-        myButtons[0].setOnAction((ActionEvent ae) -> MainController.search()); //"doSomething  is a place filler
-
-        myButtons[1] = new Button("Search");
-        myButtons[1].setPrefSize(200, 50);
-        myButtons[1].setOnAction((ActionEvent ae) -> MainController.search1());
-
-        myButtons[2] = new Button("Home");
-        myButtons[2].setPrefSize(200, 50);
-        myButtons[2].setOnAction((ActionEvent ae) -> MainController.home());
-
-        myButtons[3] = new Button("Playlist");
-        myButtons[3].setPrefSize(200, 50);
-        myButtons[3].setOnAction((ActionEvent ae) -> MainController.playlist());
-
-        myButtons[4] = new Button("Settings");
-        myButtons[4].setPrefSize(200, 50);
-        myButtons[4].setOnAction((ActionEvent ae) -> MainController.settings());
-        boxOfButtons.getChildren().addAll(myButtons);
-        root.setTop(boxOfButtons);
-
-        /*HBox mid = new HBox(0);
-        mid.setPadding(new Insets(10));
-        root.setCenter(mid);
-        ObservableList<Person> people = FXCollections.observableArrayList(
-                new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                new Person("Emma", "Jones", "emma.jones@example.com"),
-                new Person("Michael", "Brown", "michael.brown@example.com")
-        );
-        TableView table = new TableView<>();
-        table.setPrefSize(400, 300);
-        table.setItems(people);
-
-        TableColumn artistColumn = new TableColumn<>("First Name");
-        artistColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        table.getColumns().add(artistColumn);
-
-        TableColumn lastNameColumn = new TableColumn<>("Last Name");
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        table.getColumns().add(lastNameColumn);
-
-        TableColumn emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        table.getColumns().add(emailColumn);
-
-        root.getChildren().add(table);
-        /*ListView<String> list = new ListView<>();
-        HBox.setHgrow(list, Priority.ALWAYS);
-        mid.getChildren().add(list);*/
-
+    public static HBox generateControls() {
 
         HBox leftAndRightBox = new HBox(2);
         leftAndRightBox.setAlignment(Pos.CENTER);
         leftAndRightBox.setPadding(new Insets(15));
 
         VBox details = new VBox();
-
 
         Label songlabel = new Label("Song");
         songlabel.setFont(new Font(20));
@@ -123,7 +54,6 @@ public class Main extends Application {
         HBox.setHgrow(centreSection, Priority.ALWAYS);
         centreSection.setAlignment(Pos.CENTER);
         leftAndRightBox.getChildren().add(centreSection);
-        root.setBottom(leftAndRightBox);
 
         Image imgback = new Image("Images/backarrow.jpg");
         ImageView imgView = new ImageView(imgback);
@@ -189,32 +119,57 @@ public class Main extends Application {
         /*Button bottomButton3 = new Button("I am on the right.");
         rightSection.getChildren().add(bottomButton3);*/
         leftAndRightBox.getChildren().add(rightSection);
-        root.setBottom(leftAndRightBox);
 
-        songTable = new TableView<>();
+        return leftAndRightBox;
 
-        TableColumn nameColumn = new TableColumn<>("Song");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.33));
-        songTable.getColumns().add(nameColumn);
+    }
 
-        TableColumn artistColumn = new TableColumn<>("Artist");
-        artistColumn.setCellValueFactory(new PropertyValueFactory<>("artist"));
-        artistColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.333));
-        songTable.getColumns().add(artistColumn);
 
-        TableColumn albumColumn = new TableColumn<>("Album");
-        albumColumn.setCellValueFactory(new PropertyValueFactory<>("album"));
-        albumColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.33));
-        songTable.getColumns().add(albumColumn);
 
-        songTable.setItems(MainController.getSongsForTable());
+    public static HBox generateButtons() {
+        HBox boxOfButtons = new HBox(1); //Create a horizontal box for all the UI Buttons
 
-        songTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            MainController.setSelectedSong(newSelection);
-        });
+        Button[] myButtons = new Button[4];
 
-        root.setCenter(songTable);
+        myButtons[0] = new Button("Search");
+        myButtons[0].setPrefSize(200, 50);
+        myButtons[0].setOnAction((ActionEvent ae) -> MainController.search());
+
+        myButtons[1] = new Button("Home");
+        myButtons[1].setPrefSize(200, 50);
+        myButtons[1].setOnAction((ActionEvent ae) -> Main.goHome());
+
+        myButtons[2] = new Button("Playlist");
+        myButtons[2].setPrefSize(200, 50);
+        myButtons[2].setOnAction((ActionEvent ae) -> MainController.playlist());
+
+        myButtons[3] = new Button("Settings");
+        myButtons[3].setPrefSize(200, 50);
+        myButtons[3].setOnAction((ActionEvent ae) -> MainController.settings());
+        boxOfButtons.getChildren().addAll(myButtons);
+
+        return boxOfButtons;
+    }
+
+    public static void goHome() {
+
+        Main.root.getChildren().clear();
+        Main.root.getChildren().addAll(Main.generateButtons(), Home.generateScene(), Main.generateControls());
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        root = new VBox();
+
+        Scene scene = new Scene(root, 450, 768); //Creates the scene with correct aspect ratio
+
+        stage.setTitle("Hello World");
+        stage.setScene(scene);
+        stage.show();
+
+        goHome();
+
     }
 
     public static void main(String[] args) {

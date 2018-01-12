@@ -1,10 +1,15 @@
 package Controller;
 
 import Models.*;
-import View.Main;
+import View.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -29,66 +34,37 @@ public class MainController {
 
     }
 
-    public static ObservableList<SongView> getSongsForTable() {
-
-        ArrayList<SongView> songViews = new ArrayList<>();
-
-        ArrayList<SongDetails> allSongs = new ArrayList<>();
-
-        SongDetailsService.selectAll(allSongs, database);
-
-        for (SongDetails s: allSongs) {
-            songViews.add(new SongView(
-                    s.getSongID(),
-                    s.getSongName(),
-                    ArtistDetailsService.selectById(s.getArtistID(), database).getFirstName(),
-                    AlbumDetailsService.selectById(s.getAlbumID(), database).getAlbumName()
-            ));
-        }
-
-        return FXCollections.observableList(songViews);
-
-    }
-
-    public static void setSelectedSong (SongView s) {
-        selectedSong = s;
-    }
-
-    public static void search() {
+    /*public static void search() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("Search coming soon...");
         alert.showAndWait();
-    }
-    public static void search1() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("X coming soon...");
-        alert.showAndWait();
+
+        BorderPane root1 = new BorderPane();
+        Scene scene1 = new Scene(root1, 450, 768);
+        Main.stage.setScene(scene1);
+        Main.stage.show();
+
+
+    }*/
+    public static void search() {
+        Main.root.getChildren().clear();
+        Main.root.getChildren().addAll(Main.generateButtons(), Search.generateScene(), Main.generateControls());
     }
     public static void home() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Home coming soon...");
-        alert.showAndWait();
+        Main.root.getChildren().clear();
+        Main.root.getChildren().addAll(Main.generateButtons(), Home.generateScene(), Main.generateControls());
     }
     public static void playlist() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Playlist coming soon...");
-        alert.showAndWait();
+        Main.root.getChildren().clear();
+        Main.root.getChildren().addAll(Main.generateButtons(), Playlist.generateScene(), Main.generateControls());
     }
     public static void settings() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Settings coming soon...");
-        alert.showAndWait();
+        Main.root.getChildren().clear();
+        Main.root.getChildren().addAll(Main.generateButtons(), Settings.generateScene(), Main.generateControls());
     }
+
     public static void backbutton() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
