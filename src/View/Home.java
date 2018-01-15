@@ -6,6 +6,7 @@ import Models.SongView;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
@@ -19,6 +20,9 @@ public class Home {
 
         Label title = new Label("HOME");
         homePane.setTop(title);
+        TextField search = new TextField();
+        search.setPromptText("Search");
+        homePane.setLeft(search);
 
         songTable = new TableView<>();
 
@@ -43,7 +47,7 @@ public class Home {
             HomeController.setSelectedSong(newSelection);
         });
 
-        homePane.setCenter(songTable);
+        homePane.setBottom(songTable);
 
         return homePane;
 

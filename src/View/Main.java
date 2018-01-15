@@ -129,23 +129,21 @@ public class Main extends Application {
     public static HBox generateButtons() {
         HBox boxOfButtons = new HBox(1); //Create a horizontal box for all the UI Buttons
 
-        Button[] myButtons = new Button[4];
+        Button[] myButtons = new Button[3];
 
-        myButtons[0] = new Button("Search");
+
+
+        myButtons[0] = new Button("Home");
         myButtons[0].setPrefSize(200, 50);
-        myButtons[0].setOnAction((ActionEvent ae) -> MainController.search());
+        myButtons[0].setOnAction((ActionEvent ae) -> Main.goHome());
 
-        myButtons[1] = new Button("Home");
+        myButtons[1] = new Button("Playlist");
         myButtons[1].setPrefSize(200, 50);
-        myButtons[1].setOnAction((ActionEvent ae) -> Main.goHome());
+        myButtons[1].setOnAction((ActionEvent ae) -> MainController.playlist());
 
-        myButtons[2] = new Button("Playlist");
+        myButtons[2] = new Button("Settings");
         myButtons[2].setPrefSize(200, 50);
-        myButtons[2].setOnAction((ActionEvent ae) -> MainController.playlist());
-
-        myButtons[3] = new Button("Settings");
-        myButtons[3].setPrefSize(200, 50);
-        myButtons[3].setOnAction((ActionEvent ae) -> MainController.settings());
+        myButtons[2].setOnAction((ActionEvent ae) -> MainController.settings());
         boxOfButtons.getChildren().addAll(myButtons);
 
         return boxOfButtons;

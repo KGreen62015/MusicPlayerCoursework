@@ -48,10 +48,7 @@ public class MainController {
 
 
     }*/
-    public static void search() {
-        Main.root.getChildren().clear();
-        Main.root.getChildren().addAll(Main.generateButtons(), Search.generateScene(), Main.generateControls());
-    }
+
     public static void home() {
         Main.root.getChildren().clear();
         Main.root.getChildren().addAll(Main.generateButtons(), Home.generateScene(), Main.generateControls());
