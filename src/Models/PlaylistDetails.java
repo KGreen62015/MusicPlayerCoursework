@@ -4,14 +4,14 @@ public class PlaylistDetails {
     private int PlaylistID;
     private String PlaylistName;
     private String CreatorName;
-    private int AmountOfSongs;
 
 
-    public PlaylistDetails(int playlistID, String playlistName, String creatorName, int amountOfSongs) {
+
+    public PlaylistDetails(int playlistID, String playlistName, String creatorName) {
         PlaylistID = playlistID;
         PlaylistName = playlistName;
         CreatorName = creatorName;
-        AmountOfSongs = amountOfSongs;
+
     }
 
 
@@ -39,16 +39,8 @@ public class PlaylistDetails {
         CreatorName = creatorName;
     }
 
-    public int getAmountOfSongs() {
-        return AmountOfSongs;
-    }
-
-    public void setAmountOfSongs(int amountOfSongs) {
-        AmountOfSongs = amountOfSongs;
-    }
-
     @Override
     public String toString() {
-        return PlaylistName;
+        return PlaylistName + "\t\t\t\t\t\t\t" + CreatorName;
     }
 }

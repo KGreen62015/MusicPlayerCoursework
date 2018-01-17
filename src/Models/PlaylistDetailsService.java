@@ -10,7 +10,7 @@ public class PlaylistDetailsService {
 
     public static void selectAll(List<PlaylistDetails> targetList, DatabaseConnection database) {
 
-        PreparedStatement statement = database.newStatement("SELECT PlaylistID, PlaylistName, CreatorName, AmountOfSongs FROM PlaylistDetails ORDER BY PlaylistID");
+        PreparedStatement statement = database.newStatement("SELECT PlaylistID, PlaylistName, CreatorName FROM PlaylistDetails ORDER BY PlaylistID");
 
         try {
             if (statement != null) {
@@ -22,8 +22,7 @@ public class PlaylistDetailsService {
                         targetList.add(new PlaylistDetails(
                                 results.getInt("PlaylistID"),
                                 results.getString("PlaylistName"),
-                                results.getString("CreatorName"),
-                                results.getInt("AmountOfSongs")));
+                                results.getString("CreatorName")));
 
                     }
                 }
