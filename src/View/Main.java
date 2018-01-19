@@ -24,6 +24,9 @@ public class Main extends Application {
     public static Image imgplay;
     public static Image imgpause;
     public static ImageView imgViewPlayPause;
+    public static Label songlabel;
+    public static Label albumlabel;
+    public static Label artistlabel;
 
     public static Slider volumeSlider;
 
@@ -36,16 +39,15 @@ public class Main extends Application {
         leftAndRightBox.setPadding(new Insets(15));
 
         VBox details = new VBox();
-
-        Label songlabel = new Label("Song");
+        songlabel = new Label("Song");
         songlabel.setFont(new Font(20));
         details.getChildren().add(songlabel);
 
-        Label albumlabel = new Label("Album");
+        albumlabel = new Label("Album");
         albumlabel.setFont(new Font(20));
         details.getChildren().add(albumlabel);
 
-        Label artistlabel = new Label("Artist");
+        artistlabel = new Label("Artist");
         artistlabel.setFont(new Font(20));
         details.getChildren().add(artistlabel);
         leftAndRightBox.getChildren().add(details);

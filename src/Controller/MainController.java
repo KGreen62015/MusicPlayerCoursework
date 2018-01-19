@@ -119,6 +119,10 @@ public class MainController {
 
                     } else {
 
+                        Main.songlabel.setText(selectedSong.getName());
+                        Main.albumlabel.setText(selectedSong.getArtist());
+                        Main.artistlabel.setText(selectedSong.getAlbum());
+
                         Media songMedia = new Media(songFile.toURI().toString());
                         songPlayer = new MediaPlayer(songMedia);
                         songPlayer.play();
