@@ -24,6 +24,10 @@ public class Home {
         search.setPromptText("Search");
         homePane.setLeft(search);
 
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            songTable.setItems(HomeController.getSongsForTable(newValue));
+        });
+
         songTable = new TableView<>();
 
         TableColumn nameColumn = new TableColumn<>("Song");
@@ -41,7 +45,7 @@ public class Home {
         albumColumn.prefWidthProperty().bind(songTable.widthProperty().multiply(0.33));
         songTable.getColumns().add(albumColumn);
 
-        songTable.setItems(HomeController.getSongsForTable());
+        songTable.setItems(HomeController.getSongsForTable(""));
 
         songTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             HomeController.setSelectedSong(newSelection);

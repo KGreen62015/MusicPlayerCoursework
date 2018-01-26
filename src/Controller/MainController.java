@@ -175,6 +175,7 @@ public class MainController {
         for (ArtistDetails c: testList1) {
             System.out.println(c);
         }
+
         ArrayList<AlbumDetails> testList2 = new ArrayList<>();
 
         AlbumDetailsService.selectAll(testList2, database);

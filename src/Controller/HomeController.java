@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class HomeController {
 
-    public static ObservableList<SongView> getSongsForTable() {
+    public static ObservableList<SongView> getSongsForTable(String searchQuery) {
 
         ArrayList<SongView> songViews = new ArrayList<>();
 
@@ -17,12 +17,18 @@ public class HomeController {
         SongDetailsService.selectAll(allSongs, MainController.database);
 
         for (SongDetails s: allSongs) {
-            songViews.add(new SongView(
-                    s.getSongID(),
-                    s.getSongName(),
-                    ArtistDetailsService.selectById(s.getArtistID(), MainController.database).getFirstName(),
-                    AlbumDetailsService.selectById(s.getAlbumID(), MainController.database).getAlbumName()
-            ));
+
+            String artist = ArtistDetailsService.selectById(s.getArtistID(), MainController.database).getFirstName();
+            String album = AlbumDetailsService.selectById(s.getAlbumID(), MainController.database).getAlbumName();
+
+            if (s.getSongName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                    artist.toLowerCase().contains(searchQuery.toLowerCase()) ||
+                    album.toLowerCase().contains(searchQuery.toLowerCase())) {
+
+                songViews.add(new SongView(
+                        s.getSongID(), s.getSongName(), artist, album
+                ));
+            }
         }
 
         return FXCollections.observableList(songViews);
