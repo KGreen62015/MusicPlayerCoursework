@@ -138,14 +138,17 @@ public class Main extends Application {
         myButtons[0] = new Button("Home");
         myButtons[0].setPrefSize(200, 50);
         myButtons[0].setOnAction((ActionEvent ae) -> Main.goHome());
+        myButtons[0].setFocusTraversable(false);
 
         myButtons[1] = new Button("Playlist");
         myButtons[1].setPrefSize(200, 50);
         myButtons[1].setOnAction((ActionEvent ae) -> MainController.playlist());
+        myButtons[1].setFocusTraversable(false);
 
         myButtons[2] = new Button("Settings");
         myButtons[2].setPrefSize(200, 50);
         myButtons[2].setOnAction((ActionEvent ae) -> MainController.settings());
+        myButtons[2].setFocusTraversable(false);
         boxOfButtons.getChildren().addAll(myButtons);
 
         return boxOfButtons;
