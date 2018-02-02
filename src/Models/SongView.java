@@ -3,7 +3,7 @@ package Models;
 import javafx.beans.property.SimpleStringProperty;
 
 public class SongView {
-
+    /////////////////////////////////////OBJECT SONG FOR TABLE VIEW/////////////////////////////////////
     public int id;
     public SimpleStringProperty name;
     public SimpleStringProperty artist;
@@ -15,6 +15,7 @@ public class SongView {
         this.artist = new SimpleStringProperty(artist);
         this.album = new SimpleStringProperty(album);
     }
+    /////////////////////////////////////GETTER AND SETTER/////////////////////////////////////
 
     public int getId() {
         return id;

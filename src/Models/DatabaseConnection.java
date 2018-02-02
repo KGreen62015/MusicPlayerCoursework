@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 public class DatabaseConnection {
 
     private Connection connection = null;
-
+    //////////////////////HELP///////////////////////
     public DatabaseConnection(String dbFile)
     {
         try

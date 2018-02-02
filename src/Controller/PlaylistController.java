@@ -10,6 +10,7 @@ import java.util.List;
 public class PlaylistController {
 
     public static List<PlaylistDetails> getItems() {
+        /////////////////////////////////////LIST VIEW/////////////////////////////////////
 
         List<PlaylistDetails> playlists = new ArrayList<>();
         PlaylistDetailsService.selectAll(playlists, MainController.database);

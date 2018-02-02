@@ -1,6 +1,7 @@
 package Models;
 
 public class SongDetails {
+    /////////////////////////////////////SONG DETAILS OBJECT/////////////////////////////////////
     private int SongID;
     private String SongName;
     private int RunTime;

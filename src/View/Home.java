@@ -15,7 +15,7 @@ public class Home {
     public static TableView<SongView> songTable;
 
     public static BorderPane generateScene() {
-
+    ////////////////////////////////////////////////TABLE VIEW/////////////////////////////////////
         BorderPane homePane = new BorderPane();
 
         Label title = new Label("HOME");

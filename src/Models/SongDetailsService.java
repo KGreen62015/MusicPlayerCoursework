@@ -9,9 +9,9 @@ import java.util.List;
 public class SongDetailsService {
 
     public static void selectAll(List<SongDetails> targetList, DatabaseConnection database) {
-
+        /////////////////////////////////////SELECT ALL FROM SONG/////////////////////////////////////
         PreparedStatement statement = database.newStatement("SELECT SongID, SongName, RunTime, ArtistID, AlbumID FROM SongDetails ORDER BY SongID");
-
+//connect to database an get the stuff
         try {
             if (statement != null) {
 

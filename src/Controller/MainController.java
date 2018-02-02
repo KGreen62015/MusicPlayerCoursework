@@ -33,22 +33,7 @@ public class MainController {
         database = new DatabaseConnection("MusicPlayerDatabase.db");
 
     }
-
-    /*public static void search() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Search coming soon...");
-        alert.showAndWait();
-
-        BorderPane root1 = new BorderPane();
-        Scene scene1 = new Scene(root1, 450, 768);
-        Main.stage.setScene(scene1);
-        Main.stage.show();
-
-
-    }*/
-
+    //when the corrosponding button is clicked it clears the scene and loads the new scene
     public static void home() {
         Main.root.getChildren().clear();
         Main.root.getChildren().addAll(Main.generateButtons(), Home.generateScene(), Main.generateControls());
@@ -69,7 +54,7 @@ public class MainController {
         alert.setContentText("Backbutton coming soon...");
         alert.showAndWait();
     }
-
+//sets the volume slider to be out of 1 so it can be used to change the volume of the song (0-1)
     public static void setVolume(double value) {
         volume = value/100;
         if (playing) {
@@ -78,12 +63,8 @@ public class MainController {
     }
 
     public static void playbutton() {
-       /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("PlayButton coming soon...");
-        alert.showAndWait();*/
-
+//checks if a song is playing
+        //////////////////////HELP///////////////////////
         if (playing) {
 
             Main.imgViewPlayPause.setImage(Main.imgplay);
@@ -108,7 +89,7 @@ public class MainController {
                 if (selectedSong != null) {
 
                     File songFile = new File("Music/" + Integer.toString(selectedSong.getId()) + ".mp3");
-
+                    //if the song file is not there it pops up this alert
                     if (!songFile.isFile()) {
 
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -118,6 +99,7 @@ public class MainController {
                         alert.showAndWait();
 
                     } else {
+                        //changes the song lable, depending on the song playing
 
                         Main.songlabel.setText(selectedSong.getName());
                         Main.albumlabel.setText(selectedSong.getArtist());
@@ -156,7 +138,7 @@ public class MainController {
         alert.showAndWait();
     }
 
-
+    //testing database conection
     public static void databaseTest() {
 
 

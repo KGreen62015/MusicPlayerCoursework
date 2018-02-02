@@ -17,6 +17,7 @@ public class Playlist {
 
         Label title = new Label("PLAYLIST");
         playListPane.setTop(title);
+        /////////////////////////////////////LIST VIEW/////////////////////////////////////
         ListView<PlaylistDetails> playListlist = new ListView<>();
         playListlist.setItems(FXCollections.observableList(PlaylistController.getItems()));
         playListPane.setCenter(playListlist);

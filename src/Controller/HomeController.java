@@ -17,14 +17,14 @@ public class HomeController {
         SongDetailsService.selectAll(allSongs, MainController.database);
 
         for (SongDetails s: allSongs) {
-
+// creats artist variable and gets artist name from id
             String artist = ArtistDetailsService.selectById(s.getArtistID(), MainController.database).getFirstName();
             String album = AlbumDetailsService.selectById(s.getAlbumID(), MainController.database).getAlbumName();
-
+//search query checks of the stuff = search
             if (s.getSongName().toLowerCase().contains(searchQuery.toLowerCase()) ||
                     artist.toLowerCase().contains(searchQuery.toLowerCase()) ||
                     album.toLowerCase().contains(searchQuery.toLowerCase())) {
-
+//adds only the searched items into the table view
                 songViews.add(new SongView(
                         s.getSongID(), s.getSongName(), artist, album
                 ));
