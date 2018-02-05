@@ -32,8 +32,4 @@ public class SongDetailsService {
             System.out.println("Database select all error: " + resultsException.getMessage());
         }
     }
-
-
-
-
 }

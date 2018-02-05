@@ -68,10 +68,11 @@ public class MainController {
         if (playing) {
 
             Main.imgViewPlayPause.setImage(Main.imgplay);
-
+            //changes immgae to play
             if (songPlayer != null) {
 
                 songPlayer.pause();
+                //changes immgae to pause
                 playing = false;
             }
 
